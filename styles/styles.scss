@@ -128,7 +128,7 @@ a {
 /* Form Inputs */
 
 .input {
-    border: none;
+    border: 1px solid;
     font-size: 1.4rem;
     font-weight: 300;
     height: 3rem;
@@ -139,7 +139,6 @@ a {
 
 .todo-input-error {
     border: 1px solid red;
-    color: red;
 }
 
 .checkbox {
@@ -160,6 +159,7 @@ a {
     font-weight: 300;
     padding: .8rem;
     transition: background .3s ease, color .3s ease;
+    border-radius: 5px;
 }
 
 .button:hover {

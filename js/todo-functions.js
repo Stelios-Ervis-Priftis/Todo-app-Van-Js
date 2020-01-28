@@ -52,7 +52,9 @@ const pushTodo = (e) => {
     if (newText.length === 0) {
         const input = document.querySelector('#todo-input')
         input.classList.add('todo-input-error')
-        input.placeholder = 'Add to do'
+        input.classList.remove('animated', 'zoomIn', 'delay-1s')
+        input.classList.add('animated', 'pulse', 'faster')
+        input.placeholder = 'Add a to do'
     } else {
         todos.push({
         id: uuidv4(),
@@ -62,6 +64,7 @@ const pushTodo = (e) => {
         const input = document.querySelector('#todo-input')
         input.classList.remove('todo-input-error')
         input.placeholder = 'Something to do'
+        input.classList.remove('animated', 'pulse', 'faster')
         e.target.elements.newText.value = ''
     }
 }
@@ -84,9 +87,6 @@ const renderTodos = (todos, filters) => {
     document.querySelector('#todos').appendChild(generateSummaryDOM(incomleteTodos))
 
     filteredTodos.forEach((todo) => {
-        // const p = document.createElement('p')
-        // p.textContent = todo.text
-        // const todoEl = generateTodoDOM(todo)
         document.querySelector('#todos').appendChild(generateTodoDOM(todo))
     })
 }
