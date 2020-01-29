@@ -53,7 +53,7 @@ const pushTodo = (e) => {
         const input = document.querySelector('#todo-input')
         input.classList.add('todo-input-error')
         input.classList.remove('animated', 'zoomIn', 'delay-1s')
-        input.classList.add('animated', 'pulse', 'faster')
+        input.classList.add('animated', 'shake', 'Slower')
         input.placeholder = 'Add a to do'
     } else {
         todos.push({
@@ -64,7 +64,8 @@ const pushTodo = (e) => {
         const input = document.querySelector('#todo-input')
         input.classList.remove('todo-input-error')
         input.placeholder = 'Something to do'
-        input.classList.remove('animated', 'pulse', 'faster')
+        input.classList.remove('animated', 'shake', 'Slower')
+
         e.target.elements.newText.value = ''
     }
 }
@@ -74,26 +75,30 @@ const renderTodos = (todos, filters) => {
     let filteredTodos = todos.filter((todo) => {
         const searchTextMatch = todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
         const hideCompletedMatch = !filters.hideCompleted || !todo.completed
-        
         return searchTextMatch && hideCompletedMatch
     })
     
-
-
-    document.querySelector('#todos').innerHTML = ''
-
     const incomleteTodos = filteredTodos.filter((todo) => !todo.completed)
 
+    document.querySelector('#todos').innerHTML = ''
     document.querySelector('#todos').appendChild(generateSummaryDOM(incomleteTodos))
 
-    filteredTodos.forEach((todo) => {
-        document.querySelector('#todos').appendChild(generateTodoDOM(todo))
-    })
+    if (filteredTodos.length > 0) {
+        filteredTodos.forEach((todo) => {
+            document.querySelector('#todos').appendChild(generateTodoDOM(todo))
+        })
+    } else {
+        const message = document.createElement('p')
+        message.textContent = 'No to-dos to show'
+        message.classList.add('animated', 'fadeIn', 'delay-2s', 'empty-message')
+        document.querySelector('#todos').appendChild(message)
+    }
 }
 
 // Get the DOM elements for an individual todo
 const generateTodoDOM = (todo) => {
     const todoEl = document.createElement('label')
+    const containerEl = document.createElement('div')
     const checkCompleted = document.createElement('input')
     const todoText = document.createElement('span')
     const removeButton = document.createElement('button')
@@ -101,7 +106,7 @@ const generateTodoDOM = (todo) => {
     // Setup the attribute checkbox
     checkCompleted.setAttribute('type', 'checkbox')
     checkCompleted.checked = todo.completed
-    todoEl.appendChild(checkCompleted)
+    containerEl.appendChild(checkCompleted)
     checkCompleted.addEventListener('change', () => {
         toggleTodo(todo.id)
         saveTodos(todos)
@@ -110,10 +115,16 @@ const generateTodoDOM = (todo) => {
 
     // Setup the text content
     todoText.textContent = todo.text
-    todoEl.appendChild(todoText)
+    containerEl.appendChild(todoText)
+
+    // Setup container
+    todoEl.classList.add('list-item')
+    containerEl.classList.add('list-item__container')
+    todoEl.appendChild(containerEl)
 
     // Setup the remove button
-    removeButton.textContent = 'x'
+    removeButton.textContent = 'Remove'
+    removeButton.classList.add('button', 'button--text')
     todoEl.appendChild(removeButton)
     removeButton.addEventListener('click', () => {
         removeTodo(todo.id)
@@ -127,7 +138,12 @@ const generateTodoDOM = (todo) => {
 // Get the DOM elements for the list summary
 const generateSummaryDOM = (incomleteTodos) => {
     const summary = document.createElement('h2')
-    summary.textContent = `You have ${incomleteTodos.length} todos left`
+    summary.classList.add('list-title')
+    if (incomleteTodos.length > 1) {
+        summary.textContent = `You have ${incomleteTodos.length} todos left.`   
+    } else {
+        summary.textContent = `You have ${incomleteTodos.length} todo left.`
+    }
 
     return summary
 }
