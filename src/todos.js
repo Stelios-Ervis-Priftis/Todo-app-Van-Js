@@ -1,16 +1,17 @@
 import uuidv4 from 'uuid/v4'
+import { log } from './helpers'
 
 // Setup the empty todos array
-const todos = []
+let todos = []
 
 // loadTodos
 const loadTodos = () => {
     const todosJson = localStorage.getItem('todos')
 
     try {
-        return todosJson ? JSON.parse(todosJSON) : []
+        todos = todosJson ? JSON.parse(todosJson) : []
     } catch (error) {
-        return []
+        todos = []
     }
 }
 // Arguments: none
@@ -29,14 +30,17 @@ const getTodos = () => todos
 // Return value: todos array
 
 // createTodo
-const createTodo = (e) => {
-    e.preventDefault()
-
+const createTodo = (text) => {
     const id = uuidv4()
-    // let newText = e.target.elements.newText.value.trim()
-    let newText = 'New todo'
+    // todos.push({
+    //     id: id,
+    //     text: text,
+    //     completed: false
+    // })
+    // saveTodos()
 
-    if (newText.length === 0) {
+    // let newText = e.target.elements.newText.value.trim()
+    if (text.length === 0) {
         const input = document.querySelector('#todo-input')
         input.classList.add('todo-input-error')
         input.classList.remove('animated', 'zoomIn', 'delay-1s')
@@ -45,7 +49,7 @@ const createTodo = (e) => {
     } else {
         todos.push({
             id: id,
-            text: newText,
+            text: text,
             completed: false
         })
         const input = document.querySelector('#todo-input')
@@ -54,18 +58,39 @@ const createTodo = (e) => {
         input.classList.remove('animated', 'shake', 'Slower')
 
         // e.target.elements.newText.value = ''
+        saveTodos()
     }
 }
 // Arguments: todo text
 // Return value: none
 
 // removeTodo
+const removeTodo = (id) => {
+    const todoIndex = todos.findIndex((todo) => todo.id === id)
+
+    if (todoIndex > -1) {
+        todos.splice(todoIndex, 1)
+        saveTodos()
+    }
+}
 // Arguments: id of todo to remove
 // Return value: none
 
 // toggleTodo
+const toggleTodo = (id) => {
+    const todo = todos.find((todo) => {
+        return todo.id === id
+    })
+
+    if (todo) {
+        todo.completed = !todo.completed
+        saveTodos()
+    }
+}
 // Arguments: id of todo to toggle
 // Return value: none
 
+loadTodos()
+
 // Make sure to call loadTodos and setup the exports
-export { loadTodos, saveTodos, getTodos, createTodo }
+export { getTodos, createTodo, removeTodo, toggleTodo }

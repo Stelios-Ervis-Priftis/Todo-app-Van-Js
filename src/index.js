@@ -6,16 +6,8 @@ log('index.js running')
 
 // Add necessary imports
 import { log, doc } from './helpers'
-import { loadTodos, saveTodos, getTodos, createTodo } from './todos'
+import { getTodos, createTodo, removeTodo, toggleTodo } from './todos'
 import { getFilters, setFilters } from './filters'
-
-
-
-// document.querySelector('#new-todo').addEventListener('submit', (e) => {
-//     createTodo(e)
-//     saveTodos()
-// })
-
 
 // Render initial todos
 
