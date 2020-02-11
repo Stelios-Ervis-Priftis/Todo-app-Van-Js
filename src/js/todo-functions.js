@@ -9,12 +9,6 @@ const getSavedTodos = () => {
     } catch (error) {
         return []
     }
-    
-    // if (todosJSON !== null) {
-    //     return JSON.parse(todosJSON)
-    // } else {
-    //     return []
-    // }
 }
 
 // Save todos to localstorage
