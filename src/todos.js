@@ -30,17 +30,13 @@ const getTodos = () => todos
 // Return value: todos array
 
 // createTodo
-const createTodo = (text) => {
-    const id = uuidv4()
-    // todos.push({
-    //     id: id,
-    //     text: text,
-    //     completed: false
-    // })
-    // saveTodos()
+const createTodo = (e) => {
+    e.preventDefault()
 
-    // let newText = e.target.elements.newText.value.trim()
-    if (text.length === 0) {
+    const id = uuidv4()
+    let newTodo = e.target.elements.newText.value.trim()
+
+    if (newTodo.length === 0) {
         const input = document.querySelector('#todo-input')
         input.classList.add('todo-input-error')
         input.classList.remove('animated', 'zoomIn', 'delay-1s')
@@ -49,7 +45,7 @@ const createTodo = (text) => {
     } else {
         todos.push({
             id: id,
-            text: text,
+            text: newTodo,
             completed: false
         })
         const input = document.querySelector('#todo-input')
@@ -57,7 +53,7 @@ const createTodo = (text) => {
         input.placeholder = 'Something to do'
         input.classList.remove('animated', 'shake', 'Slower')
 
-        // e.target.elements.newText.value = ''
+        e.target.elements.newText.value = ''
         saveTodos()
     }
 }
@@ -93,4 +89,4 @@ const toggleTodo = (id) => {
 loadTodos()
 
 // Make sure to call loadTodos and setup the exports
-export { getTodos, createTodo, removeTodo, toggleTodo }
+export { getTodos, createTodo, removeTodo, toggleTodo, saveTodos }

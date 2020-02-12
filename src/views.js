@@ -1,6 +1,13 @@
+import { getFilters } from './filters'
+import { getTodos, removeTodo, saveTodos, toggleTodo } from './todos'
+import { log } from './helpers'
+
 // renderTodos
 // Render application todos base on the filters
-const renderTodos = (todos) => {
+const renderTodos = () => {
+    const todos = getTodos()
+    const filters = getFilters()
+
     let filteredTodos = todos.filter((todo) => {
         const searchTextMatch = todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
         const hideCompletedMatch = !filters.hideCompleted || !todo.completed
@@ -41,8 +48,8 @@ const generateTodoDOM = (todo) => {
     containerEl.appendChild(checkCompleted)
     checkCompleted.addEventListener('change', () => {
         toggleTodo(todo.id)
-        saveTodos(todos)
-        renderTodos(todos, filters)
+        saveTodos()
+        renderTodos()
     })
 
     // Setup the text content
@@ -60,8 +67,8 @@ const generateTodoDOM = (todo) => {
     todoEl.appendChild(removeButton)
     removeButton.addEventListener('click', () => {
         removeTodo(todo.id)
-        saveTodos(todos)
-        renderTodos(todos, filters)
+        saveTodos()
+        renderTodos()
     })
 
     return todoEl
@@ -86,4 +93,4 @@ const generateSummaryDOM = (incomleteTodos) => {
 // Return value: the summary element
 
 // Make sure to set up the exports
-export { renderTodos, generateTodoDOM, generateSummaryDOM}
+export { renderTodos }

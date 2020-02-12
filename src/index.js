@@ -6,18 +6,38 @@ log('index.js running')
 
 // Add necessary imports
 import { log, doc } from './helpers'
-import { getTodos, createTodo, removeTodo, toggleTodo } from './todos'
-import { getFilters, setFilters } from './filters'
-import { renderTodos, generateTodoDOM, generateSummaryDOM } from './views'
+import { getTodos, createTodo } from './todos'
+import { setFilters } from './filters'
+import { renderTodos } from './views'
+
+
+// Render initial todos
+renderTodos()
+
+// Set up search text handler
+doc.querySelector('#search-text').addEventListener('input', (e) => {
+    setFilters({
+        searchText: e.target.value
+    })
+    renderTodos()
+})
+
+// Set up checkbox handler
+doc.querySelector('#hide-completed').addEventListener('change', (e) => {
+    setFilters({
+        hideCompleted: e.target.checked
+    })
+    renderTodos()
+})
+
+// Set up form submission handler
+doc.querySelector('#new-todo').addEventListener('submit', (e) => {
+    // const newTodo = e.target.elements.newText.value.trim()
+    createTodo(e)
+    renderTodos()
+})
 
 log(getTodos())
 
-// Render initial todos
-
-// Set up search text handler
-
-// Set up checkbox handler
-
-// Set up form submission handler
 
 // Bonus: Add a watcher for local storage
