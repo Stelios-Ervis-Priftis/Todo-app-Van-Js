@@ -8,6 +8,9 @@ log('index.js running')
 import { log, doc } from './helpers'
 import { getTodos, createTodo, removeTodo, toggleTodo } from './todos'
 import { getFilters, setFilters } from './filters'
+import { renderTodos, generateTodoDOM, generateSummaryDOM } from './views'
+
+log(getTodos())
 
 // Render initial todos
 
