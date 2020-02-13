@@ -83,7 +83,8 @@ a {
   height: 3rem;
   margin-right: 1.6rem;
   padding: .4rem .8rem;
-  border-radius: 25px; }
+  border-radius: 5px;
+}
 
 .todo-input-error {
   border: 1px solid red; }
@@ -110,7 +111,8 @@ a {
   font-weight: 300;
   padding: .8rem;
   transition: background .3s ease, color .3s ease;
-  border-radius: 25px; }
+  border-radius: 5px; 
+}
 
 .button:hover {
   background: #5F3A87; }
@@ -167,9 +169,12 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 25px; }
-  .list-item button {
-    font-size: 18px; }
+  border-radius: 5px; 
+}
+
+.list-item button {
+  font-size: 18px; 
+}
 
 .list-item__container {
   display: flex;

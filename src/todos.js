@@ -1,5 +1,9 @@
 import uuidv4 from 'uuid/v4'
-import { log } from './helpers'
+import { log, animateCSS } from './helpers'
+
+const input = document.querySelector('#todo-input')
+animateCSS(input, 'zoomIn', 'delay-1s')
+
 
 // Setup the empty todos array
 let todos = []
@@ -31,18 +35,10 @@ const getTodos = () => todos
 
 // createTodo
 const createTodo = (e) => {
-    e.preventDefault()
-
     const id = uuidv4()
     let newTodo = e.target.elements.newText.value.trim()
 
-    if (newTodo.length === 0) {
-        const input = document.querySelector('#todo-input')
-        input.classList.add('todo-input-error')
-        input.classList.remove('animated', 'zoomIn', 'delay-1s')
-        input.classList.add('animated', 'shake', 'Slower')
-        input.placeholder = 'Add a to do'
-    } else {
+    if (newTodo.length > 0) {
         todos.push({
             id: id,
             text: newTodo,
@@ -51,10 +47,15 @@ const createTodo = (e) => {
         const input = document.querySelector('#todo-input')
         input.classList.remove('todo-input-error')
         input.placeholder = 'Something to do'
-        input.classList.remove('animated', 'shake', 'Slower')
+        // input.classList.remove('animated', 'shake', 'Slower')
 
         e.target.elements.newText.value = ''
         saveTodos()
+    } else {
+        const input = document.querySelector('#todo-input')
+        input.classList.add('todo-input-error')
+        animateCSS(input, 'shake', 'Slower')
+        input.placeholder = 'Add a to do'
     }
 }
 // Arguments: todo text
@@ -89,4 +90,4 @@ const toggleTodo = (id) => {
 loadTodos()
 
 // Make sure to call loadTodos and setup the exports
-export { getTodos, createTodo, removeTodo, toggleTodo, saveTodos }
+export { getTodos, createTodo, removeTodo, toggleTodo }

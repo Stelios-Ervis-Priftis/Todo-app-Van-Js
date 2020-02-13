@@ -32,7 +32,7 @@ doc.querySelector('#hide-completed').addEventListener('change', (e) => {
 
 // Set up form submission handler
 doc.querySelector('#new-todo').addEventListener('submit', (e) => {
-    // const newTodo = e.target.elements.newText.value.trim()
+    e.preventDefault()
     createTodo(e)
     renderTodos()
 })

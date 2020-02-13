@@ -1,5 +1,5 @@
 import { getFilters } from './filters'
-import { getTodos, removeTodo, saveTodos, toggleTodo } from './todos'
+import { getTodos, removeTodo, toggleTodo } from './todos'
 import { log } from './helpers'
 
 // renderTodos
@@ -48,7 +48,6 @@ const generateTodoDOM = (todo) => {
     containerEl.appendChild(checkCompleted)
     checkCompleted.addEventListener('change', () => {
         toggleTodo(todo.id)
-        saveTodos()
         renderTodos()
     })
 
@@ -67,7 +66,6 @@ const generateTodoDOM = (todo) => {
     todoEl.appendChild(removeButton)
     removeButton.addEventListener('click', () => {
         removeTodo(todo.id)
-        saveTodos()
         renderTodos()
     })
 
