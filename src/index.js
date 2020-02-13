@@ -6,7 +6,7 @@ log('index.js running')
 
 // Add necessary imports
 import { log, doc } from './helpers'
-import { getTodos, createTodo } from './todos'
+import { getTodos, createTodo, removeTodo, loadTodos } from './todos'
 import { setFilters } from './filters'
 import { renderTodos } from './views'
 
@@ -41,3 +41,11 @@ log(getTodos())
 
 
 // Bonus: Add a watcher for local storage
+window.addEventListener('storage', (e) => {
+    log(e.key)
+    log(loadTodos())
+    if (e.key === 'todos') {
+        loadTodos()
+        renderTodos()
+    }
+})
