@@ -23,5 +23,4 @@ const setFilters = (updates) => {
 // Return value: none
 
 // Make sure to set up the exports
-
 export { getFilters, setFilters}

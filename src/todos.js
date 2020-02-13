@@ -1,9 +1,9 @@
 import uuidv4 from 'uuid/v4'
 import { log, animateCSS } from './helpers'
 
+// Animations
 const input = document.querySelector('#todo-input')
 animateCSS(input, 'zoomIn', 'delay-1s')
-
 
 // Setup the empty todos array
 let todos = []
@@ -88,7 +88,6 @@ const toggleTodo = (id) => {
 // Return value: none
 
 loadTodos()
-log(loadTodos())
 
 // Make sure to call loadTodos and setup the exports
 export { getTodos, createTodo, removeTodo, toggleTodo, loadTodos }

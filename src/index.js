@@ -1,15 +1,8 @@
-// Set up index.html to load the bundle
-log('index.js running')
-// Make sure to load uuid via an npm module when necessary
-
-// --
-
 // Add necessary imports
 import { log, doc } from './helpers'
 import { getTodos, createTodo, removeTodo, loadTodos } from './todos'
 import { setFilters } from './filters'
 import { renderTodos } from './views'
-
 
 // Render initial todos
 renderTodos()
@@ -37,13 +30,8 @@ doc.querySelector('#new-todo').addEventListener('submit', (e) => {
     renderTodos()
 })
 
-log(getTodos())
-
-
 // Bonus: Add a watcher for local storage
 window.addEventListener('storage', (e) => {
-    log(e.key)
-    log(loadTodos())
     if (e.key === 'todos') {
         loadTodos()
         renderTodos()
